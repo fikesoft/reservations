@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../store/slices/userSlice';
@@ -9,7 +8,7 @@ const Login = () => {
 
   const handleLogin = (role: "user" | "admin" | "guest") => {
     dispatch(login({
-      user: { name: '', email: '' },
+      user: { name: 'sorin', email: '' },
       role
     }));
     nav("/home");

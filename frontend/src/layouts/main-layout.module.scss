@@ -1,0 +1,5 @@
+@use "../assets/style/mixins" as *;
+.main_container{
+    color: white;
+    @include font-inter();
+}

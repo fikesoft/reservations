@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* ----------------------------------------
+   Universal Reset
+---------------------------------------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ----------------------------------------
+   General Elements
+---------------------------------------- */
+html, body {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.5;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Allow percentage-based heights in layout */
+body, #root {
+    min-height: 100vh;
+}
+
+/* Smoother font rendering */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ----------------------------------------
+   Links
+---------------------------------------- */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ----------------------------------------
+   Lists
+---------------------------------------- */
+ul,
+ol {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* ----------------------------------------
+   Buttons
+---------------------------------------- */
+button {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* ----------------------------------------
+   Images, Figures, Videos
+---------------------------------------- */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* ----------------------------------------
+   Forms
+---------------------------------------- */
+input,
+textarea,
+select,
+button {
+    font: inherit;
+}
+
+/* Remove default styles for inputs and textareas */
+input,
+textarea {
+    border: none;
+    outline: none;
+}
+
+/* ----------------------------------------
+   Tables
+---------------------------------------- */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* ----------------------------------------
+   Misc
+---------------------------------------- */
+:focus {
+    outline: none;
+}
+
+/* Remove default padding and margin in fieldset and legend */
+fieldset {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+/* Remove default margin from details elements */
+details {
+    display: block;
+}
+
+/* Prevent text selection highlight */
+::selection {
+    background-color: #b3d4fc;
+    color: #000;
+}
