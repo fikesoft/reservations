@@ -2,7 +2,7 @@ import { createBrowserRouter,RouterProvider } from "react-router-dom"
 //Import layouts
 import MainLayout from "./layouts/MainLayout"
 //Import components
-import { Home,Login,Register } from "./features"
+import { Home,Login,Register,Error404 } from "./features"
 //Import the protectedRoute
 import ProtectedRoute from "./routes/ProtectedRoute"
 
@@ -27,7 +27,12 @@ const router = createBrowserRouter([
                 </ProtectedRoute>)
       }
     ]
+  },
+  {
+    path:"*",
+    element:<Error404/>
   }
+
 ])
 function App() {
   return   <RouterProvider router={router} />

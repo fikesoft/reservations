@@ -1,0 +1,25 @@
+@use "../../assets/style/variables" as *;
+.input_container{
+    padding: 16px;
+    border: 1px solid $input-outline;
+    border-radius: $btn-medium-br;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    width: 100%;
+    
+    input{
+        color: $netural-grey-text;
+        width: 100%;
+    }
+    .icon{
+        font-size: 20px;
+        color: $grey-icon;
+    }
+}
+
+.container_error{
+    border: 1px solid $error-text-outline-color;
+}

@@ -2,4 +2,15 @@
 .main_container{
     color: white;
     @include font-inter();
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    header {
+        flex-shrink: 0; /* Prevents the header from shrinking */
+    }
+    main {
+        flex-grow: 1; /* Takes all available space */
+        overflow-y: auto; /* Allows scrolling if content overflows */
+    }
+    
 }

@@ -1,7 +1,7 @@
 import styles from "./header.module.scss";
 import classNames from "classnames";
 import { MouseEventHandler, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 // React-icons
 import { IoCartOutline } from "react-icons/io5";
 import { IoIosLogOut, IoIosMenu } from "react-icons/io";
@@ -21,7 +21,7 @@ const Header = () => {
   const { isAuthenticated, user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleOpenMenu: MouseEventHandler<HTMLButtonElement> = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -57,7 +57,7 @@ const Header = () => {
       <div className={styles.actions}>
         <CiViewList className={styles.icon} />
 
-        <button className={styles.button}>
+        <button className={styles.button} onClick={()=>{isAuthenticated ? navigate("/home") : navigate("/") }}>
           <AiOutlineUser className={styles.iconSmall} />
           { !isAuthenticated ? "Login/Register" : (user ? user.name : "Guest") }
         </button>
