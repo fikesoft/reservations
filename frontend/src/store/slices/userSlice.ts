@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { act } from "react";
 
 interface User{
     name:string;
     email:string;
+    picture:string | null ;
 }
 
 interface userState {

@@ -2,7 +2,7 @@ import { createBrowserRouter,RouterProvider } from "react-router-dom"
 //Import layouts
 import MainLayout from "./layouts/MainLayout"
 //Import components
-import { Home,Login,Register,Error404 } from "./features"
+import { Home,Login,Register,Error404,Callback } from "./features"
 //Import the protectedRoute
 import ProtectedRoute from "./routes/ProtectedRoute"
 
@@ -27,6 +27,10 @@ const router = createBrowserRouter([
                 </ProtectedRoute>)
       }
     ]
+  },
+  {
+    path:"/callback",
+    element:<Callback/>
   },
   {
     path:"*",

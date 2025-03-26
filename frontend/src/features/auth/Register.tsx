@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
-import { InputRow } from "../../components";
+import { InputRow, AuthGoogleBtn, AuthManualBtn } from "../../components";
 import style from "./register.module.scss";
-import { FcGoogle } from "react-icons/fc";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { IoMailOutline } from "react-icons/io5";
 import { GoEyeClosed } from "react-icons/go";
 import { CiLock } from "react-icons/ci";
-
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,9 +21,7 @@ const Register = () => {
       <div className={style.register_box}>
         <div className={style.register_container}>
           <div className={style.google_register}>
-            <button>
-              <FcGoogle /> Register with Google
-            </button>
+            <AuthGoogleBtn/>
             <div className={style.line}>
               <div className={style.first_line}></div>
               <p>or</p>
@@ -80,9 +76,7 @@ const Register = () => {
               errorText={errorText}
             />
           </form>
-          <button type="submit" className={style.submit_btn}>
-            Create your account
-          </button>
+          <AuthManualBtn textButton='Create your account ' typeButton="submit"/>           
           <div className={classNames(style.text_login, "d-flex justify-content-center")}>
             <p>Already have an account?</p>
             <span onClick={() => navigate("/")}>

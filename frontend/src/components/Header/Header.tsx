@@ -20,8 +20,11 @@ import logo from "../../assets/img/LOGO.svg";
 const Header = () => {
   const { isAuthenticated, user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
   const navigate = useNavigate();
+  
   const toggleOpenMenu: MouseEventHandler<HTMLButtonElement> = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -58,9 +61,21 @@ const Header = () => {
         <CiViewList className={styles.icon} />
 
         <button className={styles.button} onClick={()=>{isAuthenticated ? navigate("/home") : navigate("/") }}>
+          {user?.picture == null ? (
           <AiOutlineUser className={styles.iconSmall} />
+          ) : (
+            <img  className={styles.imgUser} src={user?.picture || ""} alt="User" />
+          )}
+
+        
           { !isAuthenticated ? "Login/Register" : (user ? user.name : "Guest") }
         </button>
+
+        {isAuthenticated && (
+                <button className={classNames(styles.button,styles.buttonLogout)} onClick={() => dispatch(logout())}>
+                    Logout<IoIosLogOut className={styles.icon} />
+                </button>
+        )}
 
        
 

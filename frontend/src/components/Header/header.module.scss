@@ -50,6 +50,7 @@
         gap: 5px;
         font-size: 14px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        z-index: 10000;
         
         &:hover {
             transform: translateY(-2px);
@@ -97,6 +98,11 @@
         border: none;
         cursor: pointer;
     }
+    .imgUser{
+        border-radius: 99px;
+        height: 50px;
+        width: 50px;
+    }
 }
 
 // Responsive styles
@@ -108,7 +114,20 @@
     }
 }
 
+@media (min-width: 769px) {
+    .buttonLogout {
+        display: inline-flex; /* or flex, block, etc. depending on your design */
+        visibility: visible;
+        opacity: 1;
+        height: auto;
+    }
+}
+
 @media (max-width: 768px) {
+    .buttonLogout {
+        display: none !important; /* Completely hides it without taking space */
+    }
+
     .header {
         flex-direction: column;
         justify-content: center;

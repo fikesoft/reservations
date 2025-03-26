@@ -1,0 +1,24 @@
+@use "../../assets/style/variables" as * ;
+@use "../../assets/style/mixins" as * ;
+
+.customBorder{
+    border: 1px solid $primary-background-color;
+    border-top-left-radius:8px;
+    border-bottom-left-radius:8px ;
+}
+.spanStyle{
+            @include font-montserrat(14px,700) ;
+            color:$primary-background-color !important;
+            cursor: pointer !important;
+        }
+
+
+
+@media(max-width:768px){
+    .customBorder{
+        border-top-left-radius:8px;
+        border-top-right-radius:8px ;
+        border-bottom-left-radius:0px ;
+
+    }
+}
