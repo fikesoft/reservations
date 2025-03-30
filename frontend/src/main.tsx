@@ -7,6 +7,7 @@ import App from './App.tsx'
 import "./assets/style/reset.scss";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { ToastContainer } from 'react-toastify'
 
 
 
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <App />
+      <ToastContainer autoClose={3000} position="top-right" />
     </Provider>
   </StrictMode>,
 )

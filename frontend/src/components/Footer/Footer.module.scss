@@ -1,0 +1,34 @@
+@use " ../../../../assets/style/variables" as *;
+.footerContainer {
+    background-color: $primary-background-color;
+  }
+  
+  .footerSubscribe {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    align-items: center;
+    width: 280px; // Prevents it from stretching
+  
+    input {
+      flex: none;
+      width: 200px;
+      max-width: 200px;
+    }
+  
+    .icon {
+      color: $primary-background-color;
+    }
+  }
+  
+  .footerInfo {
+    border-bottom: 1px solid $line-outline;
+    max-width: 50vw;
+  
+    @media (max-width: 552px) {
+      max-width: 90vw; // Make it adapt better on smaller screens
+    }
+  }
+  

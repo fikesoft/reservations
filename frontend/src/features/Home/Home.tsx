@@ -1,13 +1,17 @@
-import useAppSelector from "../../store/hooks/useSelector"
-const Home = () => {
-  const {role } = useAppSelector((state) => state.user);
-  return (
-    <div>
-      {role === "user" ? "user ": "home"}
-      {role === "admin" ? "admin ": "home"}
-      {role === "guest" ? "guest ": "home"}
 
+import Landing from "./sections/landing/Landing";
+import RandomSelection from "./sections/randomSelection/RandomSelection";
+import AboutUs from "./sections/aboutUs/AboutUs";
+const Home = () => {
+  return (
+    <div className="d-flex flex-column">
+      <div className="container d-flex flex-column align-items-center ">
+        <Landing />
+        <RandomSelection />
+      </div>
+      <AboutUs />
     </div>
+
   )
 }
 

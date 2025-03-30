@@ -15,16 +15,16 @@ import useAppSelector from "../../store/hooks/useSelector";
 // Reducer
 import { logout } from "../../store/slices/userSlice";
 // Static asset
-import logo from "../../assets/img/LOGO.svg";
+import Logo from "../Logo/Logo";
 
 const Header = () => {
   const { isAuthenticated, user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
   const navigate = useNavigate();
-  
+
   const toggleOpenMenu: MouseEventHandler<HTMLButtonElement> = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -33,9 +33,7 @@ const Header = () => {
     <div className={styles.header}>
       {/* Left: Logo and Navigation */}
       <div className={styles.logoAndNav}>
-        <div className={styles.logo}>
-          <img src={logo} alt="logo" className={styles.logoImage} />
-        </div>
+        <Logo/>
 
         {/* Navigation Menu */}
         <div className={classNames(styles.nav_menu, {
@@ -46,11 +44,11 @@ const Header = () => {
             <li className={styles.nav_item}>Events</li>
             <li className={styles.nav_item}>About us</li>
             <li className={styles.logout_item}>
-                {isAuthenticated && (
+              {isAuthenticated && (
                 <button className={styles.button} onClick={() => dispatch(logout())}>
-                    Logout<IoIosLogOut className={styles.icon} />
+                  Logout<IoIosLogOut className={styles.icon} />
                 </button>
-                )}
+              )}
             </li>
           </ul>
         </div>
@@ -60,24 +58,24 @@ const Header = () => {
       <div className={styles.actions}>
         <CiViewList className={styles.icon} />
 
-        <button className={styles.button} onClick={()=>{isAuthenticated ? navigate("/home") : navigate("/") }}>
+        <button className={styles.button} onClick={() => { isAuthenticated ? navigate("/home") : navigate("/") }}>
           {user?.picture == null ? (
-          <AiOutlineUser className={styles.iconSmall} />
+            <AiOutlineUser className={styles.iconSmall} />
           ) : (
-            <img  className={styles.imgUser} src={user?.picture || ""} alt="User" />
+            <img className={styles.imgUser} src={user?.picture || ""} alt="User" />
           )}
 
-        
-          { !isAuthenticated ? "Login/Register" : (user ? user.name : "Guest") }
+
+          {!isAuthenticated ? "Login/Register" : (user ? user.name : "Guest")}
         </button>
 
         {isAuthenticated && (
-                <button className={classNames(styles.button,styles.buttonLogout)} onClick={() => dispatch(logout())}>
-                    Logout<IoIosLogOut className={styles.icon} />
-                </button>
+          <button className={classNames(styles.button, styles.buttonLogout)} onClick={() => dispatch(logout())}>
+            Logout<IoIosLogOut className={styles.icon} />
+          </button>
         )}
 
-       
+
 
         <IoCartOutline className={styles.icon} />
 

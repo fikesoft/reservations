@@ -130,36 +130,49 @@ export const registerUser = async (request: Request, response: Response) :Promis
     }
 }
 
-export const loginUser = async (request:Request, response:Response) :Promise<void> =>{
-    const { email , password} = request.body
-    
-    if(!email || !password){
-        response.status(400).json({error:"Some data is missing"})
-        return
-    }
-    const exisitingUser = await User.findOne({ email }).exec();  // Use .exec() to return a proper user document
-    
-    if (!exisitingUser) {
-        response.status(400).json({ error: "User not found" });
+export const loginUser = async (request: Request, response: Response): Promise<void> => {
+    const { email, password } = request.body;
+
+    // Check required fields
+    if (!email || !password) {
+        response.status(400).json({ error: "Email and password are required" });
         return;
     }
 
+    try {
+        const existingUser = await User.findOne({ email }).exec();
 
-    if(exisitingUser.password == null){
-        response.status(400).json({error:"Maybe you registered yourself through Google"})
-        return
+        // Check if user exists
+        if (!existingUser) {
+            response.status(404).json({ error: "User not found" });
+            return;
+        }
+
+        // Check if user has a password (e.g., Google auth users might not)
+        if (!existingUser.password) {
+            response.status(400).json({ error: "Account registered via Google. Use Google login." });
+            return;
+        }
+
+        // Validate password
+        const isMatch = await bcrypt.compare(password, existingUser.password);
+        if (!isMatch) {
+            response.status(401).json({ error: "Invalid email or password" });
+            return;
+        }
+
+        // Successful login - send user data
+        response.status(200).json({
+            message: "Login successful",
+            name: existingUser.name,
+            email: existingUser.email,
+            picture: existingUser.picture,
+            isAdmin: existingUser.isAdmin
+            
+        });
+
+    } catch (error) {
+        console.error("Login error:", error);
+        response.status(500).json({ error: "An unexpected error occurred" });
     }
-    
-    const isMatch = await bcrypt.compare(password, exisitingUser.password || "");
-    response.status(200).json({ 
-        message: "User login successfully", 
-        name: exisitingUser.name,
-        picture:exisitingUser.picture,
-        isAdmin: exisitingUser.isAdmin,
-      });
-    if (!isMatch) {
-         response.status(400).json({ message: "Invalid email or password." });
-         return
-    }   
-
-}
+};

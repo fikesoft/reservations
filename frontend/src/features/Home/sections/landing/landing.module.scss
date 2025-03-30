@@ -1,0 +1,37 @@
+@use "../../../../assets/style/mixins" as *; 
+@use "../../../../assets/style/variables" as *; 
+
+.contentHome{ 
+    h1{
+        @include font-montserrat(64px,700,1.2);
+        text-align: center;
+    }
+    p{
+        @include font-inter(18px);
+        max-width: 400px;
+    }
+    button{
+        background-color: $primary-background-color;
+        border-radius: 3px;
+        padding: 15px 35px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        color: white;
+        @include font-inter(24px,600);
+        text-transform: uppercase;    
+    }
+}
+@media(max-width:425px){
+    .contentHome{ 
+        h1{
+            @include font-montserrat(48px,700);
+            max-width: 300px;
+        }
+        p{
+            max-width:  300px;
+            text-align: center;
+        }
+     
+    }
+}

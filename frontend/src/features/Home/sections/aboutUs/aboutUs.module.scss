@@ -1,0 +1,154 @@
+@use "../../../../assets/style/mixins" as *;
+
+.aboutUs {
+  // Default styles (for large screens)
+  padding: 200px max(25vw, 20px);
+  background-image: url("../../../../assets/img/bgAboutUs.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+
+  div {
+    h3 {
+      @include font-montserrat(2.5rem, 700);
+    }
+    h2 {
+      @include font-montserrat(5rem, 700);
+    }
+    p {
+      max-width: 1000px;
+      @include font-montserrat(18px, 400); // 400 as default weight if not specified
+      text-align: center;
+    }
+    a {
+      @include font-montserrat(2.5rem, 100);
+      color: #D9D9D9;
+      text-align: start;
+      margin-top: 20px;
+    }
+  }
+
+
+
+  // Small devices (576px to 767.98px)
+  @media (max-width: 576px) {
+    padding: 100px 10px !important;
+
+    div {
+      h3 {
+        @include font-montserrat(16px !important, 700);
+      }
+      h2 {
+        @include font-montserrat(24px !important, 700);
+      }
+      p {
+        @include font-montserrat(13px, 400);
+      }
+      a {
+        @include font-montserrat(14px , 100);
+      }
+    }
+  }
+
+    // Small devices (576px to 767.98px)
+    @media (max-width:768px) {
+      padding: 100px 40px !important;
+  
+      div {
+        h3 {
+          @include font-montserrat(16px !important, 700);
+        }
+        h2 {
+          @include font-montserrat(28px !important, 700);
+        }
+        p {
+          @include font-montserrat(13px, 400);
+        }
+        a {
+          @include font-montserrat(14px , 100);
+        }
+      }
+    }
+
+        // Small devices (576px to 767.98px)
+        @media (max-width: 992px) {
+          padding: 100px 60px !important;
+      
+          div {
+            h3 {
+              @include font-montserrat(18px !important, 700);
+            }
+            h2 {
+              @include font-montserrat(32px !important, 700);
+            }
+            p {
+              @include font-montserrat(17px, 400);
+            }
+            a {
+              @include font-montserrat(14px , 100);
+            }
+          }
+        }
+  
+
+  // Large devices (992px and up)
+  @media (min-width: 992px) {
+    // You can either keep the default padding or adjust further if needed.
+    padding: 200px max(25vw , 20px) !important;
+
+    div {
+      h3 {
+        @include font-montserrat(2.5rem, 700);
+      }
+      h2 {
+        @include font-montserrat(6rem, 700);
+      }
+      p {
+        @include font-montserrat(18px, 400);
+      }
+      a {
+        @include font-montserrat(2.5rem, 100);
+      }
+    }
+  }
+  @media (max-width: 1238px) {
+    // You can either keep the default padding or adjust further if needed.
+    padding: 200px max(13vw, 20px)  !important ;
+
+    div {
+      h3 {
+        @include font-montserrat(2.5rem, 700);
+      }
+      h2 {
+        @include font-montserrat(4rem, 700);
+      }
+      p {
+        @include font-montserrat(18px, 400);
+      }
+      a {
+        @include font-montserrat(2.5rem, 100);
+      }
+    }
+  }
+  @media (max-width: 1440px) {
+    // You can either keep the default padding or adjust further if needed.
+    padding: 200px max(24vw, 20px) !important;
+
+    div {
+      h3 {
+        @include font-montserrat(2.5rem, 700);
+      }
+      h2 {
+        @include font-montserrat(4rem, 700);
+      }
+      p {
+        @include font-montserrat(18px, 400);
+      }
+      a {
+        @include font-montserrat(2.5rem, 100);
+      }
+    }
+  }
+}
+

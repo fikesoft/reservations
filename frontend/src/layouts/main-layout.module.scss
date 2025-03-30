@@ -1,11 +1,16 @@
 @use "../assets/style/mixins" as *;
+body{
+background-color: white !important;
+overflow-x: hidden;
 .main_container{
-    color: white;
+    color: white !important;
+    background-color: white;
     @include font-inter();
     display: flex;
     flex-direction: column;
-    
     min-height: 100vh;
+    gap: 80px;
+    
     header {
         flex-shrink: 0; /* Prevents the header from shrinking */
     }
@@ -14,7 +19,7 @@
         overflow-y: auto; /* Allows scrolling if content overflows */
         display: flex;
         justify-content: center;
-        align-items: center;
     }
     
+}
 }

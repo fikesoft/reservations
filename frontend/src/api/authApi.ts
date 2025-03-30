@@ -26,6 +26,31 @@ export const handleGoogleCallback = () => {
       console.error("Token not found in URL");
       return null;
     }
-  };  
+};
+
+export const registerUser =  async (name:string, email:string, password:string) =>{
+   try {
+    const response = await api.post("/register/user",{name,email,password});
+    return { status: response.status, data: response };
+
+   } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return { status: error.response?.status, data: error.response?.data };
+        }
+        return { status: 500, data: { message: "Unexpected error occurred" } };
+    }
+}
+
+export const loginUser = async (email:string, password:string) => {
+  try {
+    const response =  await api.post("/login/user", {email,password})
+    return {status:response.status, data: response}
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+        return { status: error.response?.status, data: error.response?.data };
+    }
+    return { status: 500, data: { message: "Unexpected error occurred" } };
+}
+}
 
 

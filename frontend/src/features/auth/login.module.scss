@@ -1,24 +1,41 @@
-@use "../../assets/style/variables" as * ;
-@use "../../assets/style/mixins" as * ;
+@use "../../assets/style/variables" as *;
+@use "../../assets/style/mixins" as *;
 
-.customBorder{
+.customBorder {
     border: 1px solid $primary-background-color;
-    border-top-left-radius:8px;
-    border-bottom-left-radius:8px ;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
-.spanStyle{
-            @include font-montserrat(14px,700) ;
-            color:$primary-background-color !important;
-            cursor: pointer !important;
-        }
+
+.spanStyle {
+    @include font-montserrat(14px, 700);
+    color: $primary-background-color !important;
+    cursor: pointer !important;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+
+    .first_line,
+    .second_line {
+        content: "";
+        height: 1px;
+        width: 100%;
+        background-color: $line-outline;
+    }
+}
 
 
 
-@media(max-width:768px){
-    .customBorder{
-        border-top-left-radius:8px;
-        border-top-right-radius:8px ;
-        border-bottom-left-radius:0px ;
+@media(max-width:768px) {
+    .customBorder {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-left-radius: 0px;
 
     }
 }

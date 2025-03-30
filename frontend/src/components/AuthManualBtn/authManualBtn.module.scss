@@ -1,12 +1,12 @@
 @use "../../assets/style/variables" as *;
 .buttonAuthManual{
-background-color:$primary-background-color ;
-color: white;
+background-color:$primary-background-color !important; ;
+color: white !important;
 border-radius: $btn-medium-br;
 padding: 16px !important;
-font-size: 14px;
+font-size: 14px !important; ;
 &:hover{
-    background-color: $btn-text-purple;
+    background-color: $btn-text-purple !important; ;
     font-size: 16px;
     transform: translateY(5px );
 }
