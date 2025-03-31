@@ -1,7 +1,8 @@
 import classNames from "classnames";
 import style from "./aboutUs.module.scss";
-
+import { useNavigate } from "react-router-dom";
 const AboutUs = () => {
+  const navigate = useNavigate()
   return (
     <section className={classNames(style.aboutUs,"mt-5")}>
       <div className="container d-flex flex-column justify-content-center align-items-center text-center ">
@@ -11,7 +12,7 @@ const AboutUs = () => {
               We’ve always believed that random can change lives. So we created a platform for fans to experience
               more of the shows they love in the most hassle-free way possible.
             </p>
-            <a href="#" >About us</a>
+            <a  onClick={() => {navigate("/about")}} style={{cursor:"pointer", textDecoration:"underline"}}>About us</a>
       </div>
     </section>
   );

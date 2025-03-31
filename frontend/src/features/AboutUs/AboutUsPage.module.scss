@@ -1,0 +1,10 @@
+@use "../../assets/style/mixins" as * ;
+.headerAboutUs{
+    @include font-montserrat(96px,800)
+}
+
+@media(max-width:552px ){
+    .headerAboutUs{
+        @include font-montserrat(52px,800)
+    }
+}

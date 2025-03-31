@@ -40,9 +40,9 @@ const Header = () => {
           [styles.show]: isMenuOpen,
         })}>
           <ul className={styles.navMenuList}>
-            <li className={styles.nav_item}>Home</li>
-            <li className={styles.nav_item}>Events</li>
-            <li className={styles.nav_item}>About us</li>
+            <li className={styles.nav_item} onClick={()=>{navigate("/home")}}>Home</li>
+            <li className={styles.nav_item} >Events</li>
+            <li className={styles.nav_item}  onClick={()=>{navigate("/about")}}>About us</li>
             <li className={styles.logout_item}>
               {isAuthenticated && (
                 <button className={styles.button} onClick={() => dispatch(logout())}>

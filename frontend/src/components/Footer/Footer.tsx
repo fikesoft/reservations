@@ -4,8 +4,9 @@ import { FaArrowRight, FaTwitter } from "react-icons/fa6";
 import { ImFacebook } from "react-icons/im";
 import classNames from "classnames";
 import style from "./Footer.module.scss"
-
+import { useNavigate } from "react-router-dom";
 const Footer = () => {
+    const navigate = useNavigate();
     return (
         <div className={classNames(
             style.footerContainer,
@@ -25,9 +26,9 @@ const Footer = () => {
                 </div>
                 <div className="col-md-2 col-12 d-flex flex-column gap-3">
                     <p><b>Quick links</b></p>
-                    <p>Home</p>
-                    <p>Events</p>
-                    <p>About us</p>
+                    <a style={{ cursor: "pointer" }} onClick={() => { navigate("/home") }}>Home</a>
+                    <a style={{ cursor: "pointer" }}>Events</a>
+                    <a style={{ cursor: "pointer" }} onClick={() => { navigate("/about") }} >About us</a>
                 </div>
                 <div className="col-md-5 col-12 d-flex flex-column gap-3" style={{ maxWidth: "300px" }}>
                     <p><b>Subscribe</b></p>

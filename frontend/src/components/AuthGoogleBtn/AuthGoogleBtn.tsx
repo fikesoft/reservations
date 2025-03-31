@@ -6,7 +6,7 @@ const AuthGoogleBtn = () => {
         initiateGoogleAuth()
     }
     return (
-     <button  onClick={handleGoogle} className={style.buttonGoogle}>
+     <button  onClick={(e)=>{e.preventDefault(),handleGoogle()}} className={style.buttonGoogle}>
       <FcGoogle /> Register with Google
      </button>
   )
