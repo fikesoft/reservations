@@ -1,8 +1,9 @@
 import styles from "./randomSelection.module.scss";
 import photoEvent from "../../../../assets/img/eventPhoto.png";
 import classNames from "classnames";
-
+import useAppSelector from "../../../../store/hooks/useSelector";
 const RandomSelection = () => {
+    const  { role } = useAppSelector(state => state.user)
     return (
         <section className="row d-flex flex-column  align-items-center mt-5 w-100">
             {/* Title Row */}
@@ -16,8 +17,8 @@ const RandomSelection = () => {
                 <div className="row d-flex flex-row justify-content-center flex-wrap w-100 gap-3 mt-5">
                     {[...Array(5)].map((_, index) => (
                         <div key={index} className="col-lg-2 col-md-4 col-6 d-flex flex-column align-items-center">
-                            <img className="img-fluid" src={photoEvent} alt="photoEvent" style={{ maxWidth: "100%", height: "auto" }} />
-                            <div className={classNames(styles.textEvent, "text-lg-start text-center mt-2")}>
+                            <img className="img-fluid" src={photoEvent} alt="photoEvent"  style={{ maxWidth: "100%", filter: role === "guest" ? "blur(2px)" : "none" , height: "auto" }} />
+                            <div className={classNames(styles.textEvent, "text-lg-start text-center mt-2")} style={{filter: role === "guest" ? "blur(2px)" : "none"}}>
                                 <p>Beach Please Festival 4 days pass</p>
                                 <p>Madrid, Plaza de Sol</p>
                                 <p>Monday 18 Jun.</p>

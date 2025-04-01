@@ -1,7 +1,16 @@
 import express from "express";
 import dotenv from "dotenv"
 import connectDB from "./config/db_connect";
-import { googleAuth ,googleAuthCallback,registerUser,loginUser} from "./routes";
+import { 
+  googleAuth ,
+  googleAuthCallback,
+  registerUser,
+  loginUser,
+  createEvent,
+  readEvent,
+  deleteEvent,
+  editEvent
+} from "./routes";
 
 const cors = require("cors");
 dotenv.config();
@@ -23,6 +32,14 @@ app.use('/api/auth/google',googleAuth)
 app.use('/api/auth/callback',googleAuthCallback)
 app.use('/api/register/user',registerUser)
 app.use('/api/login/user',loginUser)
+
+//CRUD EVENTS 
+app.use ('/api/create-event',createEvent)
+app.use ('/api/read-event',readEvent)
+app.use ('/api/delete-event',deleteEvent)
+app.use ('/api/edit-event',editEvent)
+
+
 
 
 

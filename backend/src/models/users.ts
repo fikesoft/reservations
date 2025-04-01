@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema({
-    google_id: { type: String, default: null,sparse: true},
+    google_id: { type: String, default: null, sparse: true},
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, default: null },
