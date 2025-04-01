@@ -14,6 +14,11 @@ export const eventSchema = checkSchema({
             errorMessage: "Image must be a valid URL",
         },
     },
+    date:{
+        notEmpty:{
+            errorMessage:"Date is required"
+        },
+    },
     "location.country": {
         notEmpty: {
             errorMessage: "Country is required",

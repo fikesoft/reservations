@@ -22,6 +22,7 @@ interface EventSchemaType extends Document {
     name: string;
     img: string;
     location: LocationType;
+    date: string;
     price: number; // Base price
     category: string;
     classTicket: TicketPrice[]; // Array of ticket types with multipliers
@@ -31,6 +32,7 @@ interface EventSchemaType extends Document {
 const eventSchema = new Schema<EventSchemaType>({
     name: { type: String, required: true },
     img: { type: String, required: true },
+    date:{type: String ,required:true},
     location: {
         country: { type: String, required: true },
         city: { type: String, required: true },
