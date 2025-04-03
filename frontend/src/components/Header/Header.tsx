@@ -41,7 +41,7 @@ const Header = () => {
         })}>
           <ul className={styles.navMenuList}>
             <li className={styles.nav_item} onClick={()=>{navigate("/home")}}>Home</li>
-            <li className={styles.nav_item} >Events</li>
+            <li className={styles.nav_item }onClick={()=>{navigate("/events")}} >Events</li>
             <li className={styles.nav_item}  onClick={()=>{navigate("/about")}}>About us</li>
             <li className={styles.logout_item}>
               {isAuthenticated && (
@@ -63,7 +63,7 @@ const Header = () => {
           {user?.picture == null ? (
             <AiOutlineUser className={styles.iconSmall} />
           ) : (
-            <img className={styles.imgUser} src={user?.picture || ""} alt="User" />
+            <img className={styles.imgUser} src={ user?.picture || "" } alt="User" />
           )}
 
 

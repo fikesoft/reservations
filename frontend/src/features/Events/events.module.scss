@@ -1,0 +1,25 @@
+@use "../../assets/style/variables" as *;
+@use "../../assets/style/mixins" as *;
+
+.sectionCatalog{
+
+}
+.filters{
+    background-color: $primary-background-color;
+    padding: 14px 11px;
+    border-radius: 8px;
+    color: white;
+}
+h1{
+    @include font-montserrat(6rem,800 !important);
+    text-transform: uppercase;
+    color: $primary-background-color !important;
+    opacity: 70%;
+}
+.catalogItems{
+    .buttonBook{
+        background-color: $btn-text-purple;
+        padding: 7px 15px;
+        color: white;
+    }
+}

@@ -1,14 +1,7 @@
 import axios from "axios"
 import {jwtDecode} from "jwt-decode";
+import { api,apiBaseUrl } from "./baseUrl";
 
-
-const apiBaseUrl = import.meta.env.VITE_BACKEND_API_URL
-
-const api = axios.create({
-    baseURL: apiBaseUrl,
-    withCredentials:true
-})
-console.log(apiBaseUrl)
 
 export const initiateGoogleAuth = () => {
     // This redirects the browser to the backend endpoint for Google OAuth
@@ -24,7 +17,7 @@ export const handleGoogleCallback = () => {
       return userData;
     } else {
       console.error("Token not found in URL");
-      return null;
+      return null;  
     }
 };
 
