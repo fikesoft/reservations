@@ -12,7 +12,7 @@ interface LocationEventInterface{
   street:string
 }
 
-interface EventsInterface {
+interface EventsInterface{
   category:string,
   classTicket:ClassTicketInterface[],
   date:string,
@@ -23,7 +23,11 @@ interface EventsInterface {
   price:number
   _id:string
 }
-
+interface EventState {
+  events: EventsInterface[]; 
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+} 
 // Async thunk to fetch events
 export const fetchEvents = createAsyncThunk("events/fetchEvents", async () => {
   const response = await readEvents();
@@ -33,11 +37,6 @@ export const fetchEvents = createAsyncThunk("events/fetchEvents", async () => {
   throw new Error(response.data.message || "Failed to fetch events");
 });
 
-interface EventState {
-    events: EventsInterface[]; 
-    status: "idle" | "loading" | "succeeded" | "failed";
-    error: string | null;
-  } 
 const initialState: EventState = {
     events: [],
     status: "idle",

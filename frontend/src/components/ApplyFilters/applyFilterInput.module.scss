@@ -1,0 +1,43 @@
+@use "../../assets/style/variables" as *;; // Update path to match your project
+.filterWrapper {
+    background-color: $primary-background-color;
+    color: white;
+    border-radius: $btn-medium-br;
+  }
+  
+  .filterChip {
+    background-color: white;
+    color: $netural-grey-text;
+    padding: 6px 12px;
+    border-radius: $btn-medium-br;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid $line-outline;
+    font-size: 14px;
+  
+    span {
+      margin: 0;
+    }
+  }
+  
+  .closeIcon {
+    color: $grey-icon;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .customBtn {
+    background-color: white !important;
+    color: $primary-background-color !important;
+    border: none;
+    border-radius: $btn-medium-br;
+    padding: 6px 14px;
+    font-weight: 500;
+  }
+  
+  .noFiltersText {
+    font-size: 14px;
+    color: white; /* Set the text color to white when no filters are applied */
+    font-style: italic;
+  }

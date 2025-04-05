@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/userSlice";
 import toastReducer from "./slices/toastSlice";
-import eventReducer from "./slices/eventSlice"
+import eventReducer from "./slices/eventSlice";
+import filterReducer from "./slices/filterSlice"
 export const store = configureStore({
     reducer:{
         user:userReducer,
         toast:toastReducer,
-        event:eventReducer
+        event:eventReducer,
+        filter:filterReducer
     }
 })
 

@@ -1,0 +1,9 @@
+@use "../../assets/style/variables" as *; 
+.calendar{
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid $line-outline ;
+    color:black !important;
+    padding: 10px 20px;
+
+}
