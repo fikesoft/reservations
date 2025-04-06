@@ -24,7 +24,7 @@ interface EventRequestBody {
 
 interface EventRequestBodyPatch extends Partial<EventRequestBody> {}
 
-// ✅ Create Event
+// Create Event
 export const createEvent = async (req: Request<{}, {}, EventRequestBody>, res: Response) => {
   const createData = req.body;
 
@@ -44,17 +44,27 @@ export const createEvent = async (req: Request<{}, {}, EventRequestBody>, res: R
   }
 };
 
-// ✅ Read All Events
-export const readEvent = async (req: Request, res: Response) => {
-  try {
-    const allEvents = await Event.find();
-    res.status(200).json({ message: "All events fetched successfully", allEvents });
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching events", error: error instanceof Error ? error.message : error });
-  }
-};
+//  Read All Events
+  export const readEvent = async (req: Request, res: Response) => {
+    const { price, category, date, country } = req.query;
 
-// ✅ Delete Event
+    const query: any = {};
+
+
+    if (price) query.price = { $gte: Number(price) }; // or $gte / custom logic
+    if (category) query.category = category;
+    if (date) query.date = date; // or format to ISO if needed
+    if (country) query["location.country"] = country;
+
+    try {
+      const allEvents = await Event.find(query);
+      res.status(200).json({ message: "All events fetched successfully", allEvents });
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching events", error: error instanceof Error ? error.message : error });
+    }
+  };
+
+//  Delete Event
 export const deleteEvent = async (req: Request<{ id: string }>, res: Response) => {
   const { id } = req.params;
   
@@ -77,7 +87,7 @@ export const deleteEvent = async (req: Request<{ id: string }>, res: Response) =
   }
 };
 
-// ✅ Edit Event
+//  Edit Event
 export const editEvent = async (req: Request<{ id: string }, {}, EventRequestBodyPatch>, res: Response) => {
   const { id } = req.params;
   const editData = req.body;

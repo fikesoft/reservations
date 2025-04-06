@@ -29,13 +29,28 @@ interface EventState {
   error: string | null;
 } 
 // Async thunk to fetch events
-export const fetchEvents = createAsyncThunk("events/fetchEvents", async () => {
-  const response = await readEvents();
-  if (response.status === 200) {
-    return response.data.allEvents; 
+export const fetchEvents = createAsyncThunk(
+  "events/fetchEvents",
+  async (
+    filters: {
+      category?: string;
+      country?: string;
+      date?: string;
+      price?: string;
+    },
+    { rejectWithValue }
+  ) => {
+    const response = await readEvents(filters);
+    
+    if (response.status === 200 && 'allEvents' in response.data) {
+      return response.data.allEvents;
+    }
+
+    return rejectWithValue(response.data.message || "Failed to fetch events");
   }
-  throw new Error(response.data.message || "Failed to fetch events");
-});
+);
+
+
 
 const initialState: EventState = {
     events: [],
@@ -58,7 +73,10 @@ const eventSlice = createSlice({
       })
       .addCase(fetchEvents.rejected, (state, action) => {
         state.status = "failed";
-        state.error = "An unknown error occurred"; //action.error.message ?? "An unknown error occurred" 
+        // Type-safe error extraction
+        state.error = typeof action.payload === "string"
+          ? action.payload
+          : action.error.message ?? "An unknown error occurred";
       });
   },
 });

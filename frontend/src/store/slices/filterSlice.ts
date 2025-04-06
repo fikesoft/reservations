@@ -10,6 +10,11 @@ interface FilterState {
   filterOpenPrice: boolean;
   filterOpenDate: boolean;
   filterOpenCategory: boolean;
+  allCountries: string[];
+  allCategories: string[];
+  allDates: Date[];
+  minPrice: number;
+  maxPrice: number;
 }
 
 // Define the initial state using the FilterState interface
@@ -22,6 +27,12 @@ const initialState: FilterState = {
   filterOpenPrice: false,
   filterOpenDate: false,
   filterOpenCategory: false,
+  allCountries:[],
+  allCategories:[],
+  allDates:[],
+  minPrice:0,
+  maxPrice:0
+    
 };
 
 export const filterSlice = createSlice({
@@ -58,6 +69,21 @@ export const filterSlice = createSlice({
       state.selectedDate = "";
       state.selectedCategory = "";
     },
+    setAllCountries: (state, action: PayloadAction<string[]>) => {
+      state.allCountries = action.payload;
+    },
+    setAllCategories: (state, action: PayloadAction<string[]>) => {
+      state.allCategories = action.payload;
+    },
+    setAllDates: (state, action: PayloadAction<Date[]>) => {
+      state.allDates = action.payload;
+    },
+    setMinPrice: (state, action: PayloadAction<number>) => {
+      state.minPrice = action.payload;
+    },
+    setMaxPrice: (state, action: PayloadAction<number>) => {
+      state.maxPrice = action.payload;
+    }
   },
 });
 
@@ -71,6 +97,11 @@ export const {
   toggleFilterOpenDate,
   toggleFilterOpenCategory,
   resetFilters,
+  setAllCountries,
+  setAllCategories,
+  setAllDates,
+  setMaxPrice,
+  setMinPrice
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

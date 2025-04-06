@@ -2,6 +2,7 @@ import { MdClose } from "react-icons/md";
 import useAppDispatch from "../../store/hooks/useDispach";
 import useAppSelector from "../../store/hooks/useSelector";
 import { showToast } from "../../store/slices/toastSlice";
+import { fetchEvents } from "../../store/slices/eventSlice";
 import {
   setSelectedPrice,
   setSelectedCategory,
@@ -14,13 +15,24 @@ import styles from "./ApplyFilterInput.module.scss"; // assuming SCSS module is 
 
 const ApplyFilterInput = () => {
   const dispatch = useAppDispatch();
+ 
   const {
     selectedPrice,
     selectedCountry,
     selectedDate,
     selectedCategory,
   } = useAppSelector((state) => state.filter);
-
+ 
+  const fetchActualEvents  = () =>{
+    dispatch(
+      fetchEvents({
+        category: selectedCategory,
+        country: selectedCountry,
+        date: selectedDate,
+        price: selectedPrice.toString(),
+      })
+    );
+  }
   // Check if all filters are empty
   const noFiltersApplied =
     selectedPrice === 0 && !selectedCountry && !selectedDate && !selectedCategory;
@@ -28,7 +40,7 @@ const ApplyFilterInput = () => {
   return (
     <div className={`d-flex gap-4 align-items-center justify-content-center flex-wrap p-3 ${styles.filterWrapper}`}>
       <div>
-        <button className={`btn btn-sm ${styles.customBtn}`} onClick={()=>{dispatch(resetFilters()),dispatch(showToast({type:"success",message:"Filter succesfully reset"}))}}>Reset filter</button>
+        <button className={`btn btn-sm ${styles.customBtn}`} onClick={()=>{dispatch(resetFilters()),fetchActualEvents(),dispatch(showToast({type:"success",message:"Filter succesfully reset"}))}}>Reset filter</button>
       </div>
       <div className="d-flex gap-3 flex-wrap">
         {noFiltersApplied && (
@@ -61,7 +73,7 @@ const ApplyFilterInput = () => {
       </div>
 
       <div >
-        <button className={`btn btn-sm ${styles.customBtn}`}>Apply Filters</button>
+        <button className={`btn btn-sm ${styles.customBtn}`} onClick={()=>{fetchActualEvents(),dispatch(showToast({type:"success",message:"Filtres succesfully set"}))}}>Apply Filters</button>
       </div>
     </div>
   );
