@@ -1,0 +1,24 @@
+.favorite {
+    position: absolute;
+    bottom: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    background-color: black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+    .icon {
+        color: white;
+        font-size: 18px;
+    }   
+    .iconHeart{
+        color: #E35053;
+        font-size: 18px;
+
+    }
+}
+

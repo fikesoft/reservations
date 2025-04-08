@@ -1,0 +1,6 @@
+@use "../../assets/style//variables" as *;
+.buttonBook {
+    background-color: $btn-text-purple;
+    padding: 7px 15px;
+    color: white;
+}

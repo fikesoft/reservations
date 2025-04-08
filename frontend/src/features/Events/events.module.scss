@@ -2,27 +2,12 @@
 @use "../../assets/style/mixins" as *;
 
 .sectionCatalog {
-
-
-    
-
     h1 {
         @include font-montserrat(6rem, 800 !important);
         text-transform: uppercase;
         color: $primary-background-color !important;
         opacity: 70%;
-    }
-
-    .catalogItems {
-        .buttonBook {
-            background-color: $btn-text-purple;
-            padding: 7px 15px;
-            color: white;
-        }
-    }
-
-  
-
+    } 
 }
 @media(max-width:768px){
     .sectionCatalog{
