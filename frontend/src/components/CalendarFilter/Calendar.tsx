@@ -5,14 +5,15 @@ import style from "./calendar.module.scss";
 import useAppDispatch from "../../store/hooks/useDispach";
 import useAppSelector from "../../store/hooks/useSelector";
 import { setSelectedDate, toggleFilterOpenDate } from "../../store/slices/filterSlice";
+
 interface CalendarProps {
-  listEventDates: Date[];
+  listEventDates: string[]; // Ensure this is an array of strings
 }
 
 const Calendar: React.FC<CalendarProps> = ({ listEventDates }) => {
   const now = new Date();
-  const dispatch =useAppDispatch();
-  const {selectedDate} = useAppSelector((state)=>state.filter)
+  const dispatch = useAppDispatch();
+  const { selectedDate } = useAppSelector((state) => state.filter);
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -26,27 +27,26 @@ const Calendar: React.FC<CalendarProps> = ({ listEventDates }) => {
   const handleNextMonth = () => {
     if (currentMonth === 11) {
       setCurrentMonth(0);
-      setCurrentYear(prev => prev + 1);
+      setCurrentYear((prev) => prev + 1);
     } else {
-      setCurrentMonth(prev => prev + 1);
+      setCurrentMonth((prev) => prev + 1);
     }
   };
 
   const handlePreviousMonth = () => {
     if (currentMonth === 0) {
       setCurrentMonth(11);
-      setCurrentYear(prev => prev - 1);
+      setCurrentYear((prev) => prev - 1);
     } else {
-      setCurrentMonth(prev => prev - 1);
+      setCurrentMonth((prev) => prev - 1);
     }
   };
 
-  const isAvailableDay = (day: number): boolean =>
-    listEventDates.some(date =>
-      date.getDate() === day &&
-      date.getMonth() === currentMonth &&
-      date.getFullYear() === currentYear
-    );
+  // Updated isAvailableDay function
+  const isAvailableDay = (day: number): boolean => {
+    const dateString = formatDate(currentYear, currentMonth, day);
+    return listEventDates.includes(dateString);
+  };
 
   const generateDays = () => {
     const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -103,7 +103,7 @@ const Calendar: React.FC<CalendarProps> = ({ listEventDates }) => {
             gridTemplateColumns: "repeat(7, 1fr)",
             width: "250px",
             gap: "4px",
-            marginTop: "8px"
+            marginTop: "8px",
           }}
         >
           {days.map((day, index) => {
@@ -120,13 +120,13 @@ const Calendar: React.FC<CalendarProps> = ({ listEventDates }) => {
                   backgroundColor: isAvailable ? "#B44CB4" : "transparent",
                   color: "black",
                   cursor: isAvailable ? "pointer" : "default",
-                  borderRadius: "4px"
+                  borderRadius: "4px",
                 }}
-                className={ isAvailable ? "text-light " : ""}
+                className={isAvailable ? "text-light" : ""}
                 onClick={() => {
                   if (isAvailable && day !== null) {
                     dispatch(setSelectedDate(formatDate(currentYear, currentMonth, day)));
-                    dispatch(toggleFilterOpenDate())
+                    dispatch(toggleFilterOpenDate());
                   }
                 }}
               >

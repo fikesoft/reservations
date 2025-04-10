@@ -13,9 +13,11 @@ import style from "./event.module.scss"
 
 //Import favorite 
 import Favorite from "../Favorite/Favorite"
+import { useNavigate } from "react-router-dom"
 
 interface EventProps {
     event: {
+        _id:string
         img: string
         name: string
         location: {
@@ -30,7 +32,7 @@ interface EventProps {
 
 const Event = ({ event, index }: EventProps) => {
     const { role } = useAppSelector((state) => state.user)
-
+    const navigate = useNavigate();
     return (
         <div className="col-lg-3 col-md-4 col-sm-6 col-7 d-flex flex-column align-items-sm-start align-items-center gap-2">
             {role === "admin" && (
@@ -85,7 +87,7 @@ const Event = ({ event, index }: EventProps) => {
                 </p>
                 <p>From {event.price}$</p>
             </div>
-            <button className={classNames(style.buttonBook)}>Book now</button>
+            <button className={classNames(style.buttonBook)} onClick={()=>{navigate(`/event-page/${event._id}`)}}>Book now</button>
         </div>
     )
 }

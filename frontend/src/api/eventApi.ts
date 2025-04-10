@@ -63,4 +63,70 @@ interface ClassTicketInterface{
       };
     }
   };
+
+  interface CreateEventProps {
+    name: string;
+    img: string; 
+    date: string;
+    location: {
+      country: string;
+      city: string;
+      street: string;
+    };
+    price: number;
+    category: string;
+    classTicket: {
+      type: string;
+      multiplier: number;
+    }[];
+    description: string;
+  }
   
+  
+  export const createEvent = async ({
+    name,
+    img,
+    date,
+    location,
+    price,
+    category,
+    classTicket,
+    description,
+  }: CreateEventProps) => {
+    try {
+      console.log(name,
+        img,
+        date,
+        location,
+        price,
+        category,
+        classTicket,
+        description,)
+      const response = await api.post("/create-event", {
+        name,
+        img,
+        date,
+        location,
+        price,
+        category,
+        classTicket,
+        description,
+      });
+  
+      return {
+        status: response.status,
+        data: response.data,
+      };
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status ?? 500;
+        const message = error.response?.data?.message ?? "An error occurred while creating the event.";
+        return { status, data: { message } };
+      }
+  
+      return {
+        status: 500,
+        data: { message: "An unexpected error occurred." },
+      };
+    }
+  };

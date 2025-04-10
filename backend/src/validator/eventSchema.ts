@@ -66,10 +66,12 @@ export const eventSchema = checkSchema({
         notEmpty: {
             errorMessage: "Description is required",  
         },
+        /*
         isLength: {
             options: { max: 200, min: 50 },
             errorMessage: "Description must be at most 200 characters long and minimum 50"
-        }
+        }*/
+            
     },
 });
 

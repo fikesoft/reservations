@@ -112,7 +112,7 @@ const Filter = () => {
             const allCategoriesArray = Array.from(new Set(arrayEvents.map(e => e.category)));
             const allDatesArray = Array.from(
                 new Set(arrayEvents.map((event) => dayjs(event.date).format("YYYY-MM-DD")))
-            ).map((dateString) => new Date(dateString));
+              )
 
             // Dispatch everything at once
             dispatch(setAllCategories(allCategoriesArray));

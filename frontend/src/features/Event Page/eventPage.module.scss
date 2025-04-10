@@ -1,0 +1,4 @@
+@use "../../assets/style/mixins" as *; 
+.title{
+    @include font-montserrat(5rem,700)
+}

@@ -3,12 +3,14 @@ import userReducer from "./slices/userSlice";
 import toastReducer from "./slices/toastSlice";
 import eventReducer from "./slices/eventSlice";
 import filterReducer from "./slices/filterSlice"
+import ticketReducer from "./slices/ticketSlice"
 export const store = configureStore({
     reducer:{
         user:userReducer,
         toast:toastReducer,
         event:eventReducer,
-        filter:filterReducer
+        filter:filterReducer,
+        ticket:ticketReducer
     }
 })
 

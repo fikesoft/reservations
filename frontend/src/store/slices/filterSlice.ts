@@ -12,7 +12,7 @@ interface FilterState {
   filterOpenCategory: boolean;
   allCountries: string[];
   allCategories: string[];
-  allDates: Date[];
+  allDates: string[];
   minPrice: number;
   maxPrice: number;
 }
@@ -75,7 +75,7 @@ export const filterSlice = createSlice({
     setAllCategories: (state, action: PayloadAction<string[]>) => {
       state.allCategories = action.payload;
     },
-    setAllDates: (state, action: PayloadAction<Date[]>) => {
+    setAllDates: (state, action: PayloadAction<string[]>) => {
       state.allDates = action.payload;
     },
     setMinPrice: (state, action: PayloadAction<number>) => {
