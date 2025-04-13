@@ -31,156 +31,32 @@ It allows users to register, log in (manually or via Google), browse events, and
 | Database   | MongoDB                      |
 | State Mgmt | Redux Toolkit                |
 
+
 fikesoft-reservations/
-    ├── README.md
-    ├── backend/
-    │   ├── package-lock.json
-    │   ├── package.json
-    │   ├── tsconfig.json
-    │   ├── .gitignore
-    │   └── src/
-    │       ├── server.ts
-    │       ├── config/
-    │       │   └── db_connect.ts
-    │       ├── controllers/
-    │       │   ├── authController.ts
-    │       │   └── eventController.ts
-    │       ├── middleware/
-    │       │   ├── hashPasword.ts
-    │       │   └── validateRequest.ts
-    │       ├── models/
-    │       │   ├── event.ts
-    │       │   └── users.ts
-    │       ├── routes/
-    │       │   ├── createEvent.ts
-    │       │   ├── deleteEvent.ts
-    │       │   ├── editEvent.ts
-    │       │   ├── googleAuth.ts
-    │       │   ├── googleAuthCallback.ts
-    │       │   ├── index.ts
-    │       │   ├── loginUser.ts
-    │       │   ├── readEvent.ts
-    │       │   └── registerUser.ts
-    │       └── validator/
-    │           ├── eventIdSchema.ts
-    │           ├── eventSchema.ts
-    │           └── index.ts
-    └── frontend/
-        ├── README.md
-        ├── eslint.config.js
-        ├── index.html
-        ├── package-lock.json
-        ├── package.json
-        ├── tsconfig.app.json
-        ├── tsconfig.json
-        ├── tsconfig.node.json
-        ├── vite.config.ts
-        ├── .gitignore
-        ├── public/
-        └── src/
-            ├── App.tsx
-            ├── main.tsx
-            ├── vite-env.d.ts
-            ├── api/
-            │   ├── authApi.ts
-            │   ├── baseUrl.ts
-            │   └── eventApi.ts
-            ├── assets/
-            │   ├── img/
-            │   └── style/
-            │       ├── _mixins.scss
-            │       ├── _variables.scss
-            │       └── reset.scss
-            ├── components/
-            │   ├── index.ts
-            │   ├── ApplyFilters/
-            │   │   ├── applyFilterInput.module.scss
-            │   │   └── ApplyFilterInput.tsx
-            │   ├── AuthGoogleBtn/
-            │   │   ├── authBtnGoogle.module.scss
-            │   │   └── AuthGoogleBtn.tsx
-            │   ├── AuthManualBtn/
-            │   │   ├── authManualBtn.module.scss
-            │   │   └── AuthManualBtn.tsx
-            │   ├── CalendarFilter/
-            │   │   ├── calendar.module.scss
-            │   │   └── Calendar.tsx
-            │   ├── Create Event Form/
-            │   │   ├── createForm.module.scss
-            │   │   └── CreateForm.tsx
-            │   ├── Edit Event Form/
-            │   │   ├── editForm.module.scss
-            │   │   └── EditForm.tsx
-            │   ├── Event/
-            │   │   ├── event.module.scss
-            │   │   └── Event.tsx
-            │   ├── Favorite/
-            │   │   ├── favorite.module.scss
-            │   │   └── Favorite.tsx
-            │   ├── Filter/
-            │   │   ├── filter.module.scss
-            │   │   └── Filter.tsx
-            │   ├── Footer/
-            │   │   ├── Footer.module.scss
-            │   │   └── Footer.tsx
-            │   ├── Header/
-            │   │   ├── header.module.scss
-            │   │   └── Header.tsx
-            │   ├── IncreaseTicketNumber/
-            │   │   └── IncreaseNumber.tsx
-            │   ├── InputRow/
-            │   │   ├── inputRow.module.scss
-            │   │   └── InputRow.tsx
-            │   └── Logo/
-            │       └── Logo.tsx
-            ├── features/
-            │   ├── index.ts
-            │   ├── AboutUs/
-            │   │   ├── AboutUsPage.module.scss
-            │   │   └── AboutUsPage.tsx
-            │   ├── auth/
-            │   │   ├── login.module.scss
-            │   │   ├── Login.tsx
-            │   │   ├── register.module.scss
-            │   │   └── Register.tsx
-            │   ├── Callback/
-            │   │   └── Callback.tsx
-            │   ├── Cart/
-            │   │   └── Cart.tsx
-            │   ├── Error/
-            │   │   └── Error404.tsx
-            │   ├── Event Page/
-            │   │   ├── eventPage.module.scss
-            │   │   └── EventPage.tsx
-            │   ├── Events/
-            │   │   ├── events.module.scss
-            │   │   └── Events.tsx
-            │   └── Home/
-            │       ├── Home.tsx
-            │       └── sections/
-            │           ├── aboutUs/
-            │           │   ├── aboutUs.module.scss
-            │           │   └── AboutUs.tsx
-            │           ├── landing/
-            │           │   ├── landing.module.scss
-            │           │   └── Landing.tsx
-            │           └── randomSelection/
-            │               ├── randomSelection.module.scss
-            │               └── RandomSelection.tsx
-            ├── layouts/
-            │   ├── main-layout.module.scss
-            │   └── MainLayout.tsx
-            ├── routes/
-            │   └── ProtectedRoute.tsx
-            └── store/
-                ├── store.ts
-                ├── hooks/
-                │   ├── useDispach.ts
-                │   └── useSelector.ts
-                └── slices/
-                    ├── editSlice.ts
-                    ├── eventSlice.ts
-                    ├── filterSlice.ts
-                    ├── ticketSlice.ts
-                    ├── toastSlice.ts
-                    └── userSlice.ts
+├── README.md               # Project documentation
+├── backend/                # Backend server using Node.js + Express
+│   ├── package.json        # Backend dependencies and scripts
+│   ├── tsconfig.json       # TypeScript configuration
+│   └── src/
+│       ├── server.ts       # Entry point for the backend server
+│       ├── config/         # DB configuration
+│       │   └── db_connect.ts
+│       ├── controllers/    # Logic for handling routes
+│       ├── middleware/     # Custom Express middleware (e.g., password hashing, request validation)
+│       ├── models/         # Mongoose schemas for MongoDB
+│       ├── routes/         # All backend routes (event & auth)
+│       └── validator/      # Zod or Joi validation schemas
+│
+├── frontend/               # Frontend client using React + Vite
+│   ├── index.html          # Entry HTML file
+│   ├── vite.config.ts      # Vite configuration
+│   └── src/
+│       ├── App.tsx         # Main App component
+│       ├── main.tsx        # Entry point for React app
+│       ├── api/            # Axios API configuration for events/auth
+│       ├── assets/         # Static assets (images, SCSS)
+│       ├── components/     # Reusable UI components (buttons, headers, forms)
+│       ├── features/       # Feature-specific pages (Home, Auth, Events)
+│       ├── layouts/        # Application layout components
+│       ├── routes/         # Custom route wrappers (e.g., ProtectedRoute)
+│       └── store/          # Redux store, slices, and custom hooks
