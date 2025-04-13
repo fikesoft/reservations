@@ -16,10 +16,12 @@ import useAppSelector from "../../store/hooks/useSelector";
 import { logout } from "../../store/slices/userSlice";
 // Static asset
 import Logo from "../Logo/Logo";
+import { showToast } from "../../store/slices/toastSlice";
 
 const Header = () => {
-  const { isAuthenticated, user } = useAppSelector((state) => state.user);
+  const { isAuthenticated, user ,role } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const { tickets } = useAppSelector ((state) => state.ticket) ;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -29,6 +31,17 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleCartClick = ( )=>{ 
+    if(role !== "guest"){
+      if (tickets.length > 0) {
+            navigate("/cart");
+          } else {
+            dispatch(showToast({type:"error",message:"To access the cart please select at least one ticket "}))
+      }
+    }else{
+      dispatch(showToast({type:"error",message:"Create an account and login "}))
+    }
+  }
   return (
     <div className={styles.header}>
       {/* Left: Logo and Navigation */}
@@ -57,7 +70,6 @@ const Header = () => {
 
       {/* Right: Actions Section */}
       <div className={styles.actions}>
-        <CiViewList className={styles.icon} />
 
         <button className={styles.button} onClick={() => { isAuthenticated ? navigate("/home") : navigate("/") }}>
           {user?.picture == null ? (
@@ -77,8 +89,20 @@ const Header = () => {
         )}
 
 
+        <div>
+          <IoCartOutline className={styles.icon} onClick={()=>handleCartClick()} style={{position:"absolute"}}/>
+          {
+          <p  className="text-center mt-2"style={{
+            position:"relative" ,
+            top:"15px", left:"20px", 
+            backgroundColor:"white", 
+            borderRadius:"50px", 
+            width:"30px",  
+            height:"25px",
+            color: '#4d194d'}}>{tickets.length}</p>
+          } 
+        </div>
 
-        <IoCartOutline className={styles.icon} />
 
         {/* Toggle Button for Mobile */}
         <button onClick={toggleOpenMenu} className={styles.toggleButton}>

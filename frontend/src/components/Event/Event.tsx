@@ -129,7 +129,14 @@ const Event = ({ event, index }: EventProps) => {
                 </p>
                 <p>From {event.price}$</p>
             </div>
-            <button className={classNames(style.buttonBook)} onClick={()=>{navigate(`/event-page/${event._id}`)}}>Book now</button>
+            <button
+                className={classNames(style.buttonBook)}
+                disabled={role === "guest"}
+                style={{ cursor: role === "guest" ? "not-allowed" : "pointer" }}
+                onClick={() => navigate(`/event-page/${event._id}`)}
+            >
+            Book now
+            </button>
         </div>
     )
 }

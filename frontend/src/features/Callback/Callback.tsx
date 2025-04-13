@@ -17,8 +17,6 @@ const Callback = () => {
   useEffect(() => {
     const processCallback = async () => {
       const userData: JwtPayload | null = await handleGoogleCallback(); // handleGoogleCallback returns JwtPayload
-
-      console.log(userData);
       if (userData ) {
         const user: User = {
           name: userData.name as string,

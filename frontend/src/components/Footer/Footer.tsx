@@ -41,7 +41,7 @@ const Footer = () => {
 
             {/* Second Section */}
             <div className="row gap-5 align-items-center justify-content-center w-100 text-center">
-                <div className="col-md-3 col-12 d-flex flex-column flex-md-row justify-content-center gap-3">
+                <div className="col-md-3 col-12 d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
                     <div className="rounded-circle border border-white d-flex align-items-center justify-content-center align-items-center " style={{ width: "30px", height: "30px" }}>
                         <RiLinkedinFill size={16} color="white" />
                     </div>
