@@ -1,6 +1,8 @@
 A full-stack web application for event management and reservations for the event, built with TypeScript, React, Vite, and Node.js. 
+![image](https://github.com/user-attachments/assets/a20c15a8-7a74-4571-9bcb-507cd6c06d9d)
 
 It allows users to register, log in (manually or via Google), browse events, and reserve tickets.
+![image](https://github.com/user-attachments/assets/08511e0f-8e66-4cec-93e5-14aecf6a3efc)
 
 ---
 
@@ -17,6 +19,7 @@ It allows users to register, log in (manually or via Google), browse events, and
 ### 🛠️ Admin Features
 - Create, edit, and delete events
 - Dashboard to manage events
+![image](https://github.com/user-attachments/assets/aa8b0f7b-2bfc-4d7a-b8a2-dff19d83732c)
 
 ---
 
