@@ -1,108 +1,112 @@
-import React, { useState } from 'react';
-import classNames from 'classnames';  // For conditionally adding classnames
-import style from "./createForm.module.scss";
-import { createEvent } from '../../api/eventApi';
-import { showToast } from '../../store/slices/toastSlice';
-import useAppDispatch from '../../store/hooks/useDispach';
+import classNames from 'classnames';
+import React, { useEffect, useState } from 'react'
+import style from "./editForm.module.scss"
+import useAppSelector from '../../store/hooks/useSelector';
 import dayjs from 'dayjs';
-
-const CreateForm = () => {
-    interface CreateEventProps {
-        name: string;
-        img: string;
-        date: string;
-        location: {
-          country: string;
-          city: string;
-          street: string;
-        };
-        price: number;
-        category: string;
-        classTicket: {
-          type: string;
-          multiplier: number;
-        }[];
-        description: string;
-      }
-    const dispatch = useAppDispatch();
-    const [name, setName] = useState("");
-    const [imgUrl, setImgUrl] = useState("");
-    const [date, setDate] = useState("");
-    const [country, setCountry] = useState("");
-    const [city, setCity] = useState("");
-    const [street, setStreet] = useState("");
-    const [price, setPrice] = useState("");
-    const [category, setCategory] = useState("");
-    const [classTicket, setClassTicket] = useState([
-        { type: "Normal", multiplier: 1, enabled: false },
-        { type: "Premium", multiplier: 1, enabled: false },
-        { type: "All Inclusive", multiplier: 1, enabled: false },
-    ]);
-    const [description, setDescription] = useState("");
+import useAppDispatch from '../../store/hooks/useDispach';
+import { showToast } from '../../store/slices/toastSlice';
+import { editEvent } from '../../api/eventApi';
+import { toggleMenu } from '../../store/slices/editSlice';
+import { fetchEvents } from '../../store/slices/eventSlice';
+interface EditEventProps {
+    _id:string
+    name: string;
+    img: string;
+    date: string;
+    location: {
+      country: string;
+      city: string;
+      street: string;
+    };
+    price: number;
+    category: string;
+    classTicket: {
+      type: string;
+      multiplier: number;
+    }[];
+    description: string;
+  } 
+const EditForm = () => {
+    
+        const {eventData} =  useAppSelector((state)=>state.edit);
+        const dispatch = useAppDispatch()
+        const [name, setName] = useState(eventData ? eventData.name : "");
+        const [imgUrl, setImgUrl] = useState(eventData ? eventData.img : "");
+        const [date, setDate] = useState(eventData ? eventData.date : "");
+        const [country, setCountry] = useState(eventData ? eventData.location.country : "");
+        const [city, setCity] = useState(eventData ? eventData.location.city : "");
+        const [street, setStreet] = useState(eventData ? eventData.location.street : "");
+        const [price, setPrice] = useState(eventData ? eventData.price : 0);
+        const [category, setCategory] = useState(eventData ? eventData.category : "");
+        const [classTicket, setClassTicket] = useState([
+            { type: "Normal", multiplier: 1, enabled: false },
+            { type: "Premium", multiplier: 1, enabled: false },
+            { type: "All Inclusive", multiplier: 1, enabled: false },
+        ]);
+    const [description, setDescription] = useState(eventData ? eventData.description: "");
+    useEffect(() => {
+        if (eventData && eventData.classTicket) {
+          // Merge eventData into the existing classTicket state
+          const updatedClassTicket = classTicket.map((ticket) => {
+            // Find the corresponding ticket in eventData
+            const eventDataTicket = eventData.classTicket.find(
+              (et) => et.type === ticket.type
+            );
+    
+            // If found, update type and multiplier; otherwise, keep the original values
+            return {
+              ...ticket,
+              type: eventDataTicket?.type || ticket.type,
+              multiplier: eventDataTicket?.multiplier || ticket.multiplier,
+            };
+          });
+    
+          // Update the state with the merged data
+          setClassTicket(updatedClassTicket);
+        }
+      }, [eventData]);
     
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-      
-        // Clean up classTicket by removing the 'enabled' property
-        const cleanedClassTicket = classTicket.map(ticket => {
-          const { enabled, ...rest } = ticket;
-          return rest;
-        });
-      
-        const formattedDate = dayjs(date.trim()).format("YYYY-MM-DD");
-      
-        // Build the payload with the needed data
-        const eventData: CreateEventProps = {
-          name: name.trim(),
-          img: imgUrl.trim(),
-          date: formattedDate,
-          location: { country: country.trim(), city: city.trim(), street: street.trim() },
-          price: parseFloat(price.trim()) || 0,
-          category: category.trim(),
-          classTicket: cleanedClassTicket,
-          description: description.trim(),
-        };
-      
-        try {
-          const returnedData = await createEvent(eventData);
-          console.log("Event created successfully:", returnedData);
-      
-          // If the status is 2xx, show success toast
-          if (returnedData.status >= 200 && returnedData.status < 300) {
-            dispatch(showToast({ type: "success", message: "Successfully created" }));
-          } else {
-            // Handle error responses with 400 or others, show the first validation error
-            const errorMessage = returnedData.data.message || "An error occurred.";
-      
-            // Show the first error message
-            if (returnedData.data.errors && returnedData.data.errors.length > 0) {
-              // Check for errors and display the first one
-              const firstError = returnedData.data.errors[0];
-      
-              // Check if 'param' is available or if error has a message
-              const message = firstError?.msg || "An unexpected validation error occurred.";
-              dispatch(showToast({ type: "error", message }));
-            } else {
-              // If no validation errors, show a general error message
-              dispatch(showToast({ type: "error", message: errorMessage }));
+            e.preventDefault();
+          
+            // Clean up classTicket by removing the 'enabled' property
+            const cleanedClassTicket = classTicket.map(ticket => {
+              const { enabled, ...rest } = ticket;
+              return rest;
+            });
+          
+            const formattedDate = dayjs(date.trim()).format("YYYY-MM-DD");
+          
+            // Build the payload with the needed data
+            const eventDataPass: EditEventProps = {
+              _id: eventData  ? eventData._id : "",
+              name: name.trim(),
+              img: imgUrl.trim(),
+              date: formattedDate,
+              location: { country: country.trim(), city: city.trim(), street: street.trim() },
+              price: price,
+              category: category.trim(),
+              classTicket: cleanedClassTicket,
+              description: description.trim(),
+            };
+            console.log(eventDataPass)
+            try {
+              const returnedData = await  editEvent(eventDataPass) ;
+              console.log("Event edited successfully:", returnedData);
+              dispatch(toggleMenu())
+              dispatch(fetchEvents({}))
+            } catch (error) {
+              console.error("Error editing the  event:", error);
+          
+              // Handle generic error
+              dispatch(showToast({ type: "error", message: "An unexpected error occurred." }));
             }
-      
-          }
-        } catch (error) {
-          console.error("Error creating event:", error);
-      
-          // Handle generic error
-          dispatch(showToast({ type: "error", message: "An unexpected error occurred." }));
-        }
-      };
-      
-      
-      
+          };
     return (
-        <div className={classNames(style.createEventContainer,'d-flex flex-column align-items-center justify-content-center')} >
-            <h2>Create your event</h2>
-            <form className='border p-5 rounded  d-flex flex-column gap-2' onSubmit={(e)=>{handleSubmit(e)}}>
-                <img src={ imgUrl || undefined } alt='enter a valid url'></img>
+        <div className={classNames(style.createEventContainer, 'd-flex flex-column align-items-center justify-content-center')} >
+            <h2>Edit your event</h2>
+            <form className='border p-5 rounded  d-flex flex-column gap-2' onSubmit={(e) => { handleSubmit(e) }}>
+                <img src={imgUrl || undefined} alt='enter a valid url' style={{ maxWidth:"300px"}}></img>
                 <div className={classNames('d-flex', 'flex-column', 'gap-2')}>
                     <label htmlFor="name">Name</label>
                     <input
@@ -174,7 +178,7 @@ const CreateForm = () => {
                         type="number"
                         step={6}
                         value={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(parseFloat(e.target.value))}
                         className="form-control"
                     />
                 </div>
@@ -243,7 +247,7 @@ const CreateForm = () => {
                 </div>
                 <div className='d-flex flex-column' >
                     <label htmlFor="description">Description</label>
-                    <textarea name='description' className='border' value={description} onChange={(e)=>{setDescription(e.target.value)}}></textarea>
+                    <textarea name='description' className='border' value={description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
                 </div>
                 {/*Class Ticket End */}
                 <button type="submit" className="btn btn-primary btn mt-2 ">
@@ -251,7 +255,8 @@ const CreateForm = () => {
                 </button>
             </form>
         </div>
-    );
+
+    )
 }
 
-export default CreateForm;
+export default EditForm

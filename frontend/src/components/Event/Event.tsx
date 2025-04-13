@@ -7,6 +7,7 @@ import { MdDeleteForever, MdModeEditOutline } from "react-icons/md"
 
 //Custom hooks 
 import useAppSelector from "../../store/hooks/useSelector"
+import useAppDispatch from "../../store/hooks/useDispach"
 
 //Style
 import style from "./event.module.scss"
@@ -15,17 +16,29 @@ import style from "./event.module.scss"
 import Favorite from "../Favorite/Favorite"
 import { useNavigate } from "react-router-dom"
 
+//Import api function
+import { deleteEvent } from "../../api/eventApi"
+import { showToast } from "../../store/slices/toastSlice"
+import { fetchEvents } from "../../store/slices/eventSlice"
+import { toggleMenu, setEventData } from "../../store/slices/editSlice"
 interface EventProps {
     event: {
-        _id:string
-        img: string
-        name: string
+        _id:string;
+        name: string;
+        img: string;
+        date: string;
         location: {
-            city: string
-            street: string
-        }
-        date: string | Date
-        price: number
+          country: string;
+          city: string;
+          street: string;
+        };
+        price: number;
+        category: string;
+        classTicket: {
+          type: string;
+          multiplier: number;
+        }[];
+        description: string;
     }
     index: number
 }
@@ -33,19 +46,48 @@ interface EventProps {
 const Event = ({ event, index }: EventProps) => {
     const { role } = useAppSelector((state) => state.user)
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const handleDelete = async () => {
+        try {
+          const response = await deleteEvent(event._id);
+          console.log("Event deleted:", response);
+          dispatch(showToast({ type: "success", message: "Event deleted successfully" }));
+          dispatch(fetchEvents({}))
+        } catch (error) {
+          dispatch(showToast({ type: "error", message: "Failed to delete event" }));
+        }
+      };
+      const editEventProps ={
+        _id:event._id,
+        name: event.name,
+        img: event.img,
+        date: event.date,
+        location: {
+          country: event.location.country,
+          city: event.location.city,
+          street: event.location.street,
+        },
+        price: event.price,
+        category: event.category,
+        classTicket: event.classTicket,
+        description: event.description ,
+      } 
     return (
-        <div className="col-lg-3 col-md-4 col-sm-6 col-7 d-flex flex-column align-items-sm-start align-items-center gap-2">
+        <div className="col-lg-3 col-md-4 col-sm-6 col-7 d-flex flex-column align-items-sm-start align-items-center gap-2" key={index}>
             {role === "admin" && (
                 <div className="d-flex align-self-end gap-4">
                     <MdModeEditOutline
                         className="text-primary"
+                        style={{cursor:"pointer"}}
+
                         size={24}
-                        onClick={() => console.log("Edit Event:", index)}
+                        onClick={() => {dispatch(setEventData({ eventDataProp: editEventProps })),dispatch(toggleMenu())}}
                     />
                     <MdDeleteForever
                         className="text-danger"
+                        style={{cursor:"pointer"}}
                         size={24}
-                        onClick={() => console.log("Delete Event:", index)}
+                        onClick={() => handleDelete()}
                     />
                 </div>
             )}
@@ -91,5 +133,4 @@ const Event = ({ event, index }: EventProps) => {
         </div>
     )
 }
-
 export default Event

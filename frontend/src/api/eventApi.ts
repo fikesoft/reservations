@@ -1,5 +1,6 @@
 import axios from "axios";
 import { api } from "./baseUrl";
+
 interface ClassTicketInterface{
     type:string,
     multiplier:number,
@@ -83,50 +84,72 @@ interface ClassTicketInterface{
   }
   
   
-  export const createEvent = async ({
-    name,
-    img,
-    date,
-    location,
-    price,
-    category,
-    classTicket,
-    description,
-  }: CreateEventProps) => {
+  export const createEvent = async (eventData: CreateEventProps) => {
     try {
-      console.log(name,
-        img,
-        date,
-        location,
-        price,
-        category,
-        classTicket,
-        description,)
-      const response = await api.post("/create-event", {
-        name,
-        img,
-        date,
-        location,
-        price,
-        category,
-        classTicket,
-        description,
-      });
+      const response = await api.post("/create-event", eventData);
   
+      // Check if response status indicates success (200-299)
+      if (response.status >= 200 && response.status < 300) {
+        return { status: response.status, data: response.data };
+      }
+  
+      // If status is outside the 2xx range, handle as error (e.g., 400 Bad Request)
+      const errors = response.data?.errors || [];
       return {
         status: response.status,
-        data: response.data,
+        data: { message: response.data?.message || "An error occurred.", errors },
       };
     } catch (error) {
+      // Handle errors from Axios
       if (axios.isAxiosError(error)) {
         const status = error.response?.status ?? 500;
         const message = error.response?.data?.message ?? "An error occurred while creating the event.";
-        return { status, data: { message } };
-      }
+        const errors = error.response?.data?.errors ?? [];
+        
   
-      return {
-        status: 500,
-        data: { message: "An unexpected error occurred." },
-      };
+        return { status, data: { message, errors } };
+      }
+      return { status: 500, data: { message: "An unexpected error occurred." } };
     }
   };
+  interface EditEventProps {
+    _id:string
+    name: string;
+    img: string;
+    date: string;
+    location: {
+      country: string;
+      city: string;
+      street: string;
+    };
+    price: number;
+    category: string;
+    classTicket: {
+      type: string;
+      multiplier: number;
+    }[];
+    description: string;
+  } 
+
+  export const deleteEvent = async (_id: string) => {
+    try {
+      const response = await api.delete(`/delete-event/${_id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting event:", error);
+      throw error;
+    }
+  };
+
+  export const editEvent = async (eventData:EditEventProps) =>{
+    try {
+      const response = await  api.put(`/edit-event/${eventData._id}` ,eventData) 
+      return response.data;     
+    } catch (error) {
+      console.error("Error editing  the event:", error);
+      throw error;
+    }
+  }
+  
+  
+  

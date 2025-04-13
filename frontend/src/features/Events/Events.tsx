@@ -11,16 +11,18 @@
   import { showToast } from "../../store/slices/toastSlice";
 
   //Custom components 
-  import { ApplyFilterInput ,Filter,Event, CreateForm} from "../../components";
+  import { ApplyFilterInput ,Filter,Event, CreateForm, EditForm} from "../../components";
 
 
   import style from "./events.module.scss";
+import { toggleMenu } from "../../store/slices/editSlice";
 
   const Events = () => {
     const [openCreateEventMenu,setOpenCreateEventMenu] = useState(false)
     const dispatch = useAppDispatch();
     const { events, status } = useAppSelector((state) => state.event);
     const { role } =useAppSelector((state)=>state.user)
+    const { editMenuIsOpen } = useAppSelector((state)=>state.edit)
     const {
       selectedPrice,
       selectedCountry,
@@ -79,7 +81,7 @@
         {events.length > 0 ? (
           <ul className={ "row g-5 justify-content-center"}>
             {events.map((event, index) => (  
-              <Event event={event} index={index} key={index}/>
+              <Event event={event} index={index} key={index} />
             ))}
           </ul>
         ) : (
@@ -99,6 +101,18 @@
             ×
           </p>
           <CreateForm />
+        </div>
+      )}
+
+      {editMenuIsOpen && (
+        <div className={style.createEventWrapper}>
+          <p
+            onClick={() => dispatch(toggleMenu())}
+            className={style.closeButton}
+          >
+            ×
+          </p>
+          <EditForm />
         </div>
       )}
 

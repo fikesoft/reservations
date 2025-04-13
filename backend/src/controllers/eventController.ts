@@ -67,7 +67,6 @@ export const createEvent = async (req: Request<{}, {}, EventRequestBody>, res: R
 //  Delete Event
 export const deleteEvent = async (req: Request<{ id: string }>, res: Response) => {
   const { id } = req.params;
-  
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ message: "Invalid event ID" });
      return
